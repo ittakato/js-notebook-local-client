@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as esbuild from 'esbuild-wasm';
 
+import CodeEditor from './components/CodeEditor/CodeEditor';
+
 import unpkgPathPlugin from './plugins/unpkg-path-plugin';
 import fetchPlugin from './plugins/fetch-plugin';
 
@@ -69,6 +71,10 @@ function App() {
 
   return (
     <div className="app">
+      <CodeEditor
+        initialValue="const a = 1;"
+        onChange={(value) => setInput(value)}
+      />
       <textarea
         onChange={(e) => setInput(e.target.value)}
         value={input}
@@ -80,7 +86,12 @@ function App() {
       <div>
         <button onClick={buttonClickHandler}>Submit</button>
       </div>
-      <iframe title="preview" sandbox="allow-scripts" srcDoc={html} ref={iframeRef} />
+      <iframe
+        title="preview"
+        sandbox="allow-scripts"
+        srcDoc={html}
+        ref={iframeRef}
+      />
     </div>
   );
 }
