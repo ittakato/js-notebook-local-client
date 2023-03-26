@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
   ],
+  root: true,
   overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {

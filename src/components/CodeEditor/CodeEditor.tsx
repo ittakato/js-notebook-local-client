@@ -2,8 +2,10 @@ import React, { useRef } from 'react';
 import MonacoEditor, { type EditorDidMount } from '@monaco-editor/react';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
+import codeShift from 'jscodeshift';
+import Highlighter from 'monaco-jsx-highlighter';
 
-import styles from './CodeEditor.module.scss';
+import './syntax.scss';
 
 interface CodeEditorProps {
   initialValue: string;
@@ -21,6 +23,23 @@ function CodeEditor(props: CodeEditorProps) {
     });
 
     editor.getModel()!.updateOptions({ tabSize: 2 });
+
+    const highlighter = new Highlighter(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      window.monaco,
+      codeShift,
+      editor
+    );
+
+    highlighter.highLightOnDidChangeModelContent(
+      /* eslint-disable @typescript-eslint/no-empty-function */
+      () => {},
+      () => {},
+      undefined,
+      () => {}
+      // /* eslint-enable @typescript-eslint/no-empty-function */
+    );
   };
 
   function formatHandler() {
@@ -41,9 +60,9 @@ function CodeEditor(props: CodeEditorProps) {
   }
 
   return (
-    <div className={styles['editor-wrapper']}>
+    <div className="editor-wrapper">
       <button
-        className={`button button-format is-primary is-small ${styles['button-format']}`}
+        className={'button button-format is-primary is-small'}
         onClick={formatHandler}
       >
         Format
