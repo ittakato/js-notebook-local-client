@@ -13,6 +13,7 @@ interface CodeEditorProps {
 }
 
 function CodeEditor(props: CodeEditorProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const editorRef = useRef<any>(null);
 
   const editorDidMountHandler: EditorDidMount = (getValue, editor) => {
@@ -22,7 +23,7 @@ function CodeEditor(props: CodeEditorProps) {
       props.onChange(getValue());
     });
 
-    editor.getModel()!.updateOptions({ tabSize: 2 });
+    editor.getModel()?.updateOptions({ tabSize: 2 });
 
     const highlighter = new Highlighter(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

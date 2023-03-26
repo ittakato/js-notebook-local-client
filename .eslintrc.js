@@ -23,5 +23,6 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     eqeqeq: ['warn', 'always'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
 };
