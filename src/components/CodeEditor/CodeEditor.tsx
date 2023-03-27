@@ -5,7 +5,7 @@ import parser from 'prettier/parser-babel';
 import codeShift from 'jscodeshift';
 import Highlighter from 'monaco-jsx-highlighter';
 
-import './syntax.scss';
+import './CodeEditor.scss';
 
 interface CodeEditorProps {
   initialValue: string;
@@ -71,7 +71,7 @@ function CodeEditor(props: CodeEditorProps) {
       <MonacoEditor
         editorDidMount={editorDidMountHandler}
         value={props.initialValue}
-        height="1000px"
+        height="100%"
         language="javascript"
         theme="dark"
         options={{

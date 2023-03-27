@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
+import './Preview.scss';
+
 interface PreviewProps {
   code: string;
 }
@@ -7,7 +9,13 @@ interface PreviewProps {
 const html = `
     <!DOCTYPE html>
     <html>
-      <head></head>
+      <head>
+        <style>
+          html {
+            background-color: white;
+          }
+        </style>
+      </head>
       <body>
         <div id="root"></div>
         <script>
@@ -36,17 +44,21 @@ function Preview(props: PreviewProps) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     iframeRef.current!.srcdoc = html;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    iframeRef.current!.contentWindow!.postMessage(props.code, '*');
+    setTimeout(() => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      iframeRef.current!.contentWindow!.postMessage(props.code, '*');
+    }, 50);
   }, [props.code]);
 
   return (
-    <iframe
-      title="preview"
-      sandbox="allow-scripts"
-      srcDoc={html}
-      ref={iframeRef}
-    />
+    <div className="preview-wrapper">
+      <iframe
+        title="preview"
+        sandbox="allow-scripts"
+        srcDoc={html}
+        ref={iframeRef}
+      />
+    </div>
   );
 }
 
