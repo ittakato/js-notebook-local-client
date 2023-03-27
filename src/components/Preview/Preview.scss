@@ -20,4 +20,12 @@
 
     opacity: 0;
   }
+
+  .preview-error {
+    position: absolute;
+    top: 18px;
+    left: 8px;
+    color: red;
+    font: 700 16px serif;
+  }
 }

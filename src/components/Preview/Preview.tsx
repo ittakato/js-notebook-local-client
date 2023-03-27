@@ -4,6 +4,7 @@ import './Preview.scss';
 
 interface PreviewProps {
   code: string;
+  error: string;
 }
 
 const html = `
@@ -19,19 +20,30 @@ const html = `
       <body>
         <div id="root"></div>
         <script>
+
+          function handleError(err) {
+            const root = document.getElementById('root');
+            root.innerHTML = '<div><h4 style="color: red;">' + err + '</h4></div>';
+            console.error(err);
+          }
+
+          window.addEventListener('error', (event) => {
+            event.preventDefault();
+            handleError(event.error)
+          });
+
           window.addEventListener(
             'message',
             (event) => {
               try {
                 eval(event.data);
               } catch(err) {
-                const root = document.getElementById('root');
-                root.innerHTML = '<div>' + err + '</div>';
-                console.error(err);
+                handleError(err);
               }
             },
             false
           );
+
         </script>
       </body>
     </html>
@@ -58,6 +70,7 @@ function Preview(props: PreviewProps) {
         srcDoc={html}
         ref={iframeRef}
       />
+      {props.error && <div className='preview-error'>{props.error}</div>}
     </div>
   );
 }

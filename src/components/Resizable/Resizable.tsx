@@ -20,6 +20,7 @@ function Resizable(props: ResizableProps) {
   );
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let timer: any;
 
     function listener() {
