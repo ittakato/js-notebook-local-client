@@ -1,6 +1,11 @@
-import { ActionType } from '../action-types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { Action } from '../actions';
+import type {
+  MoveCellPayload,
+  DeleteCellPayload,
+  InsertCellBeforePayload,
+  UpdateCellPayload,
+} from '../actions';
 import type { Cell } from '../cell';
 
 interface CellState {
@@ -19,22 +24,62 @@ const initialCellState: CellState = {
   data: {},
 };
 
-function cellReducer(
-  state: CellState = initialCellState,
-  action: Action
-): CellState {
-  switch (action.type) {
-    case ActionType.UPDATE_CELL:
-      return state;
-    case ActionType.DELETE_CELL:
-      return state;
-    case ActionType.MOVE_CELL:
-      return state;
-    case ActionType.INSERT_CELL_BEFORE:
-      return state;
-    default:
-      return state;
-  }
-}
+const cellSlice = createSlice({
+  name: 'cell',
+  initialState: initialCellState,
+  reducers: {
+    updateCell: (
+      state: CellState,
+      action: PayloadAction<UpdateCellPayload>
+    ) => {
+      state.data[action.payload.id].content = action.payload.content;
+    },
+    deleteCell: (
+      state: CellState,
+      action: PayloadAction<DeleteCellPayload>
+    ) => {
+      delete state.data[action.payload.id];
+      state.order = state.order.filter((id) => id !== action.payload.id);
+    },
+    moveCell: (state: CellState, action: PayloadAction<MoveCellPayload>) => {
+      const index = state.order.findIndex((id) => id === action.payload.id);
+      const targetIndex =
+        action.payload.direction === 'up' ? index - 1 : index + 1;
 
-export default cellReducer;
+      if (targetIndex < 0 || targetIndex >= state.order.length) {
+        return;
+      }
+
+      state.order[index] = state.order[targetIndex];
+      state.order[targetIndex] = action.payload.id;
+    },
+    insertCellBefore: (
+      state: CellState,
+      action: PayloadAction<InsertCellBeforePayload>
+    ) => {
+      const cell: Cell = {
+        content: '',
+        type: action.payload.type,
+        id: crypto.randomUUID(),
+      };
+
+      state.data[cell.id] = cell;
+
+      if (action.payload.id === null) {
+        state.order.push(cell.id);
+        return;
+      }
+
+      const index = state.order.findIndex((id) => id === action.payload.id);
+
+      if (index === -1) {
+        state.order.push(cell.id);
+      } else {
+        state.order.splice(index, 0, cell.id);
+      }
+    },
+  },
+});
+
+export const cellSliceActions = cellSlice.actions;
+export default cellSlice.reducer;
