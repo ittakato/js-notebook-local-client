@@ -1,6 +1,8 @@
 import type { Direction } from '../actions';
 import type { CellType } from '../cell';
 
+// Use this for action creator thunks
+
 function updateCell(id: string, content: string) {
   return {
     id,

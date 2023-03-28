@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import MonacoEditor, { type EditorDidMount } from '@monaco-editor/react';
+import Highlighter from 'monaco-jsx-highlighter';
 import prettier from 'prettier';
 import parser from 'prettier/parser-babel';
 import codeShift from 'jscodeshift';
-import Highlighter from 'monaco-jsx-highlighter';
 
 import './CodeEditor.scss';
 

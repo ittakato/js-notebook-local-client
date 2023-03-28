@@ -24,6 +24,4 @@ store.dispatch(
   })
 );
 
-console.log(store.getState());
-
 export default store;
