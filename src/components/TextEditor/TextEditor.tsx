@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
-import useActions from '../../hooks/use-actions';
+import { useTypedDispatch } from '../../hooks/use-typed-selector';
+import { cellSliceActions } from '../../state';
 
 import type { Cell } from '../../state';
 
@@ -12,9 +13,9 @@ interface TextEditorProps {
 }
 
 function TextEditor(props: TextEditorProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useTypedDispatch();
 
-  const { updateCell } = useActions();
+  const [isEditing, setIsEditing] = useState(false);
 
   const divRef = useRef<HTMLDivElement | null>(null);
 
@@ -39,7 +40,9 @@ function TextEditor(props: TextEditorProps) {
   }, []);
 
   function MDEditorOnChangeHandler(value: string | undefined) {
-    updateCell({ id: props.cell.id, content: value || '' });
+    dispatch(
+      cellSliceActions.updateCell({ id: props.cell.id, content: value || '' })
+    );
   }
 
   if (isEditing) {

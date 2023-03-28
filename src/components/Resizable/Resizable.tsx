@@ -9,6 +9,8 @@ interface ResizableProps {
 }
 
 function Resizable(props: ResizableProps) {
+  const EDITOR_INITIAL_WIDTH = 0.75;
+
   const [innerHeight, setInnerHeight] = useState(
     document.documentElement.clientHeight
   );
@@ -16,7 +18,7 @@ function Resizable(props: ResizableProps) {
     document.documentElement.clientWidth
   );
   const [width, setWidth] = useState(
-    document.documentElement.clientWidth * 0.9
+    document.documentElement.clientWidth * EDITOR_INITIAL_WIDTH
   );
 
   useEffect(() => {
@@ -28,8 +30,11 @@ function Resizable(props: ResizableProps) {
         setInnerWidth(document.documentElement.clientWidth);
         setInnerHeight(document.documentElement.clientHeight);
 
-        if (document.documentElement.clientWidth * 0.9 < width) {
-          setWidth(document.documentElement.clientWidth * 0.9);
+        if (
+          document.documentElement.clientWidth * EDITOR_INITIAL_WIDTH <
+          width
+        ) {
+          setWidth(document.documentElement.clientWidth * EDITOR_INITIAL_WIDTH);
         }
       }, 100);
     }

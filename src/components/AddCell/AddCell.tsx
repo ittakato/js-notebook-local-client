@@ -1,6 +1,7 @@
 import React from 'react';
 
-import useActions from '../../hooks/use-actions';
+import { useTypedDispatch } from '../../hooks/use-typed-selector';
+import { cellSliceActions } from '../../state';
 
 import './AddCell.scss';
 
@@ -10,20 +11,24 @@ interface AddCellProps {
 }
 
 function AddCell(props: AddCellProps) {
-  const { insertCellAfter } = useActions();
+  const dispatch = useTypedDispatch();
 
   function addCodeCellHandler() {
-    insertCellAfter({
-      id: props.previousCellId,
-      type: 'code',
-    });
+    dispatch(
+      cellSliceActions.insertCellAfter({
+        id: props.previousCellId,
+        type: 'code',
+      })
+    );
   }
 
   function addTextCellHandler() {
-    insertCellAfter({
-      id: props.previousCellId,
-      type: 'text',
-    });
+    dispatch(
+      cellSliceActions.insertCellAfter({
+        id: props.previousCellId,
+        type: 'text',
+      })
+    );
   }
 
   return (

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import useActions from '../../hooks/use-actions';
+import { useTypedDispatch } from '../../hooks/use-typed-selector';
+import { cellSliceActions } from '../../state';
 
 import './ActionBar.scss';
 
@@ -9,30 +10,36 @@ interface ActionBarProps {
 }
 
 function ActionBar(props: ActionBarProps) {
-  const { moveCell, deleteCell } = useActions();
+  const dispatch = useTypedDispatch();
 
   function moveCellUpHandler() {
-    moveCell({
-      id: props.id,
-      direction: 'up',
-    });
+    dispatch(
+      cellSliceActions.moveCell({
+        id: props.id,
+        direction: 'up',
+      })
+    );
   }
 
   function moveCellDownHandler() {
-    moveCell({
-      id: props.id,
-      direction: 'down',
-    });
+    dispatch(
+      cellSliceActions.moveCell({
+        id: props.id,
+        direction: 'down',
+      })
+    );
   }
 
   function deleteCellHandler() {
-    deleteCell({
-      id: props.id,
-    });
+    dispatch(
+      cellSliceActions.deleteCell({
+        id: props.id,
+      })
+    );
   }
 
   return (
-    <div className='action-bar'>
+    <div className="action-bar">
       <button
         className="button is-primary is-small"
         onClick={moveCellUpHandler}

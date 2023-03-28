@@ -5,7 +5,7 @@ import type {
   DeleteCellPayload,
   InsertCellAfterPayload,
   UpdateCellPayload,
-} from '../actions';
+} from '../actions-payload';
 import type { Cell } from '../cell';
 
 interface CellState {
