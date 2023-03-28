@@ -11,7 +11,7 @@ interface DeleteCellPayload {
   id: string;
 }
 
-interface InsertCellBeforePayload {
+interface InsertCellAfterPayload {
   id: string | null;
   type: CellType;
 }
@@ -24,14 +24,14 @@ interface UpdateCellPayload {
 type CellActionPayload =
   | MoveCellPayload
   | DeleteCellPayload
-  | InsertCellBeforePayload
+  | InsertCellAfterPayload
   | UpdateCellPayload;
 
 export type {
   Direction,
   MoveCellPayload,
   DeleteCellPayload,
-  InsertCellBeforePayload,
+  InsertCellAfterPayload,
   UpdateCellPayload,
   CellActionPayload,
 };

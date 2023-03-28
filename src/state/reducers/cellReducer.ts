@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type {
   MoveCellPayload,
   DeleteCellPayload,
-  InsertCellBeforePayload,
+  InsertCellAfterPayload,
   UpdateCellPayload,
 } from '../actions';
 import type { Cell } from '../cell';
@@ -53,9 +53,9 @@ const cellSlice = createSlice({
       state.order[index] = state.order[targetIndex];
       state.order[targetIndex] = action.payload.id;
     },
-    insertCellBefore: (
+    insertCellAfter: (
       state: CellState,
-      action: PayloadAction<InsertCellBeforePayload>
+      action: PayloadAction<InsertCellAfterPayload>
     ) => {
       const cell: Cell = {
         content: '',
@@ -66,16 +66,16 @@ const cellSlice = createSlice({
       state.data[cell.id] = cell;
 
       if (action.payload.id === null) {
-        state.order.push(cell.id);
+        state.order.unshift(cell.id);
         return;
       }
 
       const index = state.order.findIndex((id) => id === action.payload.id);
 
       if (index === -1) {
-        state.order.push(cell.id);
+        state.order.unshift(cell.id);
       } else {
-        state.order.splice(index, 0, cell.id);
+        state.order.splice(index + 1, 0, cell.id);
       }
     },
   },

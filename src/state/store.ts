@@ -11,14 +11,14 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 store.dispatch(
-  cellSliceActions.insertCellBefore({
+  cellSliceActions.insertCellAfter({
     id: null,
     type: 'code',
   })
 );
 
 store.dispatch(
-  cellSliceActions.insertCellBefore({
+  cellSliceActions.insertCellAfter({
     id: null,
     type: 'text',
   })

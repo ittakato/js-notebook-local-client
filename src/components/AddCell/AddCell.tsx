@@ -5,23 +5,23 @@ import useActions from '../../hooks/use-actions';
 import './AddCell.scss';
 
 interface AddCellProps {
-  nextCellId: string | null;
+  previousCellId: string | null;
   forceVisible?: boolean;
 }
 
 function AddCell(props: AddCellProps) {
-  const { insertCellBefore } = useActions();
+  const { insertCellAfter } = useActions();
 
   function addCodeCellHandler() {
-    insertCellBefore({
-      id: props.nextCellId,
+    insertCellAfter({
+      id: props.previousCellId,
       type: 'code',
     });
   }
 
   function addTextCellHandler() {
-    insertCellBefore({
-      id: props.nextCellId,
+    insertCellAfter({
+      id: props.previousCellId,
       type: 'text',
     });
   }
