@@ -4,6 +4,8 @@ import { useTypedSelector } from '../../hooks/use-typed-selector';
 import AddCell from '../AddCell/AddCell';
 import CellListItem from '../CellListItem/CellListItem';
 
+import './CellList.scss';
+
 function CellList() {
   const cells = useTypedSelector((state) => {
     const { cell } = state;
@@ -19,7 +21,7 @@ function CellList() {
   ));
 
   return (
-    <div>
+    <div className="cell-list">
       <AddCell forceVisible={cells.length === 0} previousCellId={null} />
       {renderedCells}
     </div>

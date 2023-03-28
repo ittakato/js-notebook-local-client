@@ -2,6 +2,7 @@
   position: relative;
   height: 100%;
   flex-grow: 1;
+  overflow: hidden;
 
   iframe {
     width: 100%;
@@ -26,6 +27,6 @@
     top: 18px;
     left: 8px;
     color: red;
-    font: 700 16px serif;
+    font: 700 16px monospace;
   }
 }

@@ -23,7 +23,8 @@ const html = `
 
           function handleError(err) {
             const root = document.getElementById('root');
-            root.innerHTML = '<div><h4 style="color: red;">' + err + '</h4></div>';
+            root.innerHTML = '<div><h4 style="color: red; font: 700 16px monospace;">' + err + '</h4></div>';
+    
             console.error(err);
           }
 

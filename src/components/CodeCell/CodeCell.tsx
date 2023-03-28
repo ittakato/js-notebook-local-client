@@ -8,6 +8,7 @@ import {
   useTypedDispatch,
   useTypedSelector,
 } from '../../hooks/use-typed-selector';
+import useCumulativeCode from '../../hooks/use-cumulative-code';
 
 import type { Cell } from '../../state';
 
@@ -20,21 +21,22 @@ interface CodeCellProps {
 function CodeCell(props: CodeCellProps) {
   const dispatch = useTypedDispatch();
   const bundle = useTypedSelector((state) => state.bundle[props.cell.id]);
+  const cumulativeCode = useCumulativeCode(props.cell.id);
 
   useEffect(() => {
     if (!bundle) {
-      dispatch(createBundle(props.cell.id, props.cell.content));
+      dispatch(createBundle(props.cell.id, cumulativeCode));
       return;
     }
 
     const timer = setTimeout(async () => {
-      dispatch(createBundle(props.cell.id, props.cell.content));
+      dispatch(createBundle(props.cell.id, cumulativeCode));
     }, 750);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [props.cell.id, props.cell.content]);
+  }, [props.cell.id, cumulativeCode]);
 
   function codeEditorOnChangeHandler(value: string) {
     dispatch(
