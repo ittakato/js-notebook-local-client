@@ -4,7 +4,7 @@ import TextEditor from '../TextEditor/TextEditor';
 import CodeCell from '../CodeCell/CodeCell';
 import ActionBar from '../ActionBar/ActionBar';
 
-import type { Cell } from '../../state';
+import { type Cell } from '../../state';
 
 import './CellListItem.scss';
 

@@ -44,5 +44,6 @@ const bundleSlice = createSlice({
   },
 });
 
+export type { BundleState };
 export const bundleSliceActions = bundleSlice.actions;
 export default bundleSlice.reducer;

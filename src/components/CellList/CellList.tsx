@@ -1,12 +1,22 @@
-import React from 'react';
-import { useTypedSelector } from '../../hooks/use-typed-selector';
+import React, { useEffect } from 'react';
+import {
+  useTypedDispatch,
+  useTypedSelector,
+} from '../../hooks/use-typed-selector';
 
 import AddCell from '../AddCell/AddCell';
 import CellListItem from '../CellListItem/CellListItem';
+import { fetchCells } from '../../state';
 
 import './CellList.scss';
 
 function CellList() {
+  const dispatch = useTypedDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCells());
+  }, []);
+
   const cells = useTypedSelector((state) => {
     const { cell } = state;
     const { order, data } = cell;

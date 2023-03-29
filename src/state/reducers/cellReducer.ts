@@ -5,8 +5,11 @@ import type {
   DeleteCellPayload,
   InsertCellAfterPayload,
   UpdateCellPayload,
+  FetchCellsCompletePayload,
+  FetchCellsErrorPayload,
+  SaveCellsErrorPayload,
 } from '../actions-payload';
-import type { Cell } from '../cell';
+import { type Cell } from '../cell';
 
 interface CellState {
   loading: boolean;
@@ -78,8 +81,38 @@ const cellSlice = createSlice({
         state.order.splice(index + 1, 0, cell.id);
       }
     },
+    fetchCellsStart: (state: CellState) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchCellsComplete: (
+      state: CellState,
+      action: PayloadAction<FetchCellsCompletePayload>
+    ) => {
+      state.order = action.payload.data.map((cell) => cell.id);
+      state.data = action.payload.data.reduce((acc, cell) => {
+        acc[cell.id] = cell;
+        return acc;
+      }, {} as CellState['data']);
+      state.loading = false;
+      state.error = null;
+    },
+    fetchCellsError: (
+      state: CellState,
+      action: PayloadAction<FetchCellsErrorPayload>
+    ) => {
+      state.loading = false;
+      state.error = action.payload.error;
+    },
+    saveCellsError: (
+      state: CellState,
+      action: PayloadAction<SaveCellsErrorPayload>
+    ) => {
+      state.error = action.payload.error;
+    },
   },
 });
 
+export type { CellState };
 export const cellSliceActions = cellSlice.actions;
 export default cellSlice.reducer;

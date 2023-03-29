@@ -9,5 +9,5 @@ const rootReducer = combineReducers({
 });
 
 export { cellSliceActions };
-
+export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

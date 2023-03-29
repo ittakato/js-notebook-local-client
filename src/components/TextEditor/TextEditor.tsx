@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 
 import { useTypedDispatch } from '../../hooks/use-typed-selector';
-import { cellSliceActions } from '../../state';
-
-import type { Cell } from '../../state';
+import { cellSliceActions, type Cell } from '../../state';
 
 import './TextEditor.scss';
 

@@ -3,14 +3,12 @@ import React, { useEffect } from 'react';
 import CodeEditor from '../CodeEditor/CodeEditor';
 import Preview from '../Preview/Preview';
 import Resizable from '../Resizable/Resizable';
-import { cellSliceActions, createBundle } from '../../state';
+import { cellSliceActions, createBundle, type Cell } from '../../state';
 import {
   useTypedDispatch,
   useTypedSelector,
 } from '../../hooks/use-typed-selector';
 import useCumulativeCode from '../../hooks/use-cumulative-code';
-
-import type { Cell } from '../../state';
 
 import './CodeCell.scss';
 

@@ -1,4 +1,4 @@
-import type { CellType } from '../cell';
+import { type Cell, type CellType } from '../cell';
 
 type Direction = 'up' | 'down';
 
@@ -21,11 +21,17 @@ interface UpdateCellPayload {
   content: string;
 }
 
-type CellActionPayload =
-  | MoveCellPayload
-  | DeleteCellPayload
-  | InsertCellAfterPayload
-  | UpdateCellPayload;
+interface FetchCellsCompletePayload {
+  data: Cell[];
+}
+
+interface FetchCellsErrorPayload {
+  error: string;
+}
+
+interface SaveCellsErrorPayload {
+  error: string;
+}
 
 export type {
   Direction,
@@ -33,5 +39,7 @@ export type {
   DeleteCellPayload,
   InsertCellAfterPayload,
   UpdateCellPayload,
-  CellActionPayload,
+  FetchCellsCompletePayload,
+  FetchCellsErrorPayload,
+  SaveCellsErrorPayload,
 };
